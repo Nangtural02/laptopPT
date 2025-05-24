@@ -25,7 +25,7 @@ def run_web(app):
     with app.app_context():
         configure_routes(app)  # 실제 라우트 설정
         print("🚀 웹 서비스 모드로 실행 중...")
-    app.run(debug=True, port=8080, host="202.30.29.212")
+    app.run(debug=True, port=8080, host="💥💥💥💥💥💥💥💥💥💥💥💥")
 
 
 def run_manage(app):
