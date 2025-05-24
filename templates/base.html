@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>노트북 견적 추천</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- noUiSlider CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/nouislider@15.6.0/dist/nouislider.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/nouislider@15.6.0/dist/nouislider.min.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-900">
+  <header class="bg-white shadow-md p-4 mb-6">
+    <div class="container mx-auto flex items-center justify-between">
+      <h1 class="text-xl font-bold">💻 노트북 견적좀짜줘 너 컴공이잖아</h1>
+      <nav class="space-x-4">
+        <a href="/" class="text-blue-600 hover:underline">홈</a>
+        <a href="/search/basic" class="text-blue-600 hover:underline">프리셋 검색</a>
+        <a href="/search/advanced" class="text-blue-600 hover:underline">상세 검색</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="text-center text-sm text-gray-500 mt-10 p-4 border-t">
+    © 2025 노트북 견적좀짜줘 너 컴공이잖아 All rights reserved.
+  </footer>
+</body>
+</html>

@@ -1,0 +1,6 @@
+notebook_key,model_name,cpu,gpu,battery,display,weight,power_consumption,convenience_key
+1,Model A,1,1,50,1,1.8,65,1
+2,Model B,2,2,60,2,2.0,75,2
+3,Model C,3,3,70,3,2.2,85,3
+4,Model D,4,4,40,4,1.7,45,4
+5,Model E,5,5,60,5,1.9,70,5

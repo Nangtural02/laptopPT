@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="text-xl font-bold mb-6">노트북 상세 정보</h2>
+
+<div class="bg-white rounded-lg shadow-md p-6 space-y-4">
+  <h3 class="text-lg font-semibold">{{ notebook.model_name or '모델명 미상' }}</h3>
+
+  <ul class="text-sm text-gray-800 space-y-2">
+    <li><strong>CPU:</strong> {{ notebook.cpu_obj.cpu_model_name }} (싱글: {{ notebook.cpu_obj.single_thread_benchmark }}점, 멀티: {{ notebook.cpu_obj.multi_thread_benchmark }}점)</li>
+    <li><strong>GPU:</strong> {{ notebook.gpu_obj.gpu_model_name }} ({{ notebook.gpu_obj.graphics_benchmark }}점)</li>
+
+    <li><strong>RAM 옵션:</strong>
+      <ul class="ml-4 list-disc">
+        {% for mem in notebook.memories %}
+          <li>{{ mem.capacity }} GB / {{ mem.bandwidth }} MHz</li>
+        {% endfor %}
+      </ul>
+    </li>
+
+    <li><strong>저장장치 옵션:</strong>
+      <ul class="ml-4 list-disc">
+        {% for sto in notebook.storages %}
+          <li>{{ sto.capacity }} GB / {{ sto.type }}</li>
+        {% endfor %}
+      </ul>
+    </li>
+
+    <li><strong>디스플레이:</strong>
+      {{ notebook.display_obj.size_inch }}" /
+      {{ notebook.display_obj.resolution }} /
+      {{ notebook.display_obj.refresh_rate }}Hz
+    </li>
+
+    <li><strong>무게:</strong> {{ notebook.weight }} kg</li>
+    <li><strong>배터리 용량:</strong> {{ notebook.battery }} Wh</li>
+    <li><strong>소비 전력:</strong> {{ notebook.power_consumption }} W</li>
+
+    <li><strong>편의 기능:</strong>
+      <ul class="ml-4 list-disc">
+        {% if notebook.convenience_obj.hdmi %}<li>HDMI</li>{% endif %}
+        {% if notebook.convenience_obj.sd_port %}<li>SD카드 슬롯</li>{% endif %}
+        {% if notebook.convenience_obj.lan_port %}<li>LAN 포트</li>{% endif %}
+        {% if notebook.convenience_obj.pd_charge %}<li>PD 충전</li>{% endif %}
+        {% if notebook.convenience_obj.thunderbolt %}<li>썬더볼트</li>{% endif %}
+      </ul>
+    </li>
+  </ul>
+
+  <hr class="my-6">
+
+  <h4 class="font-semibold mb-2">현재 판매 정보</h4>
+  <ul class="text-sm text-gray-700 space-y-1">
+    {% for link in notebook.store_links %}
+      <li>
+        <a href="{{ link.link }}" class="text-blue-600 hover:underline" target="_blank">
+          {{ link.store.store_name }} - {{ "{:,}".format(link.price) }}원 {% if link.soldout %}(품절){% endif %}
+        </a>
+      </li>
+    {% else %}
+      <li class="text-gray-500">판매 정보 없음</li>
+    {% endfor %}
+  </ul>
+  <hr class="my-6">
+
+<h4 class="font-semibold mb-2">💹 가격 추이</h4>
+<canvas id="priceChart" class="w-full max-w-xl h-64"></canvas>
+<hr class="my-6">
+
+<h4 class="font-semibold mb-2">🗣 사용자 리뷰</h4>
+<ul class="space-y-3 text-sm">
+  {% for rev in reviews %}
+  <li class="border p-3 rounded bg-gray-50">
+    <div class="font-semibold text-blue-700">{{ rev.consumer.name }}</div>
+    <div class="text-yellow-600">⭐ {{ rev.rating }}/5</div>
+    <div>{{ rev.comment }}</div>
+  </li>
+  {% else %}
+  <li class="text-gray-500">등록된 리뷰가 없습니다.</li>
+  {% endfor %}
+</ul>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById("priceChart").getContext("2d");
+  const priceChart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: [
+        {% for record in price_history %}
+          "{{ record.date.strftime('%Y-%m-%d') }}"{% if not loop.last %}, {% endif %}
+        {% endfor %}
+      ],
+      datasets: [{
+        label: "가격 (원)",
+        data: [
+          {% for record in price_history %}
+            {{ record.price }}{% if not loop.last %}, {% endif %}
+          {% endfor %}
+        ],
+        borderColor: "rgb(75, 192, 192)",
+        tension: 0.2,
+        fill: false
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: false
+        }
+      }
+    }
+  });
+</script>
+
+</div>
+{% endblock %}

@@ -1,0 +1,6 @@
+notebook_key,store_key,link,soldout,price
+1,1,http://storea.com/product/1,False,1200000
+2,2,http://storeb.com/product/2,True,1300000
+3,3,http://storec.com/product/3,False,1400000
+4,4,http://stored.com/product/4,False,1100000
+5,5,http://storee.com/product/5,False,1500000

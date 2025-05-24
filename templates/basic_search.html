@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="text-xl font-bold mb-6">간단한 질문으로 노트북 찾아보기</h2>
+<form method="post" action="/search/basic" class="space-y-10">
+  <!-- Step 1: 예산 선택 -->
+  <div class="bg-gray-100 p-6 rounded shadow">
+    <label class="block text-lg font-semibold mb-4">예산은 어느 정도인가요?</label>
+    <div class="flex flex-col gap-2">
+      <label><input type="radio" name="budget" value="700000"> 70만원 이하</label>
+      <label><input type="radio" name="budget" value="1000000"> 70만원 ~ 100만원</label>
+      <label><input type="radio" name="budget" value="1300000"> 100만원 ~ 130만원</label>
+      <label><input type="radio" name="budget" value="2000000"> 130만원 이상</label>
+    </div>
+  </div>
+
+  <!-- Step 2: 사용 용도 선택 -->
+  <div class="bg-gray-100 p-6 rounded shadow">
+    <label class="block text-lg font-semibold mb-4">주로 어떤 용도로 사용하실 건가요?</label>
+    <div class="flex flex-col gap-2">
+      <label><input type="radio" name="purpose" value="office"> 문서 작업 / 웹서핑 / 인강</label>
+      <label><input type="radio" name="purpose" value="study"> 코딩 / 전공 학습 / 가벼운 개발</label>
+      <label><input type="radio" name="purpose" value="design"> 디자인 / 영상 편집</label>
+      <label><input type="radio" name="purpose" value="game"> 게임용 / 고성능 작업</label>
+    </div>
+  </div>
+
+  <!-- Step 3: 휴대성 여부 선택 -->
+  <div class="bg-gray-100 p-6 rounded shadow">
+    <label class="block text-lg font-semibold mb-4">휴대성이 중요한가요?</label>
+    <div class="flex gap-6">
+      <label><input type="radio" name="portability" value="yes"> 중요해요 (1.5kg 이하 / 14인치 이하)</label>
+      <label><input type="radio" name="portability" value="no"> 괜찮아요 (무게, 크기 상관없음)</label>
+    </div>
+  </div>
+
+  <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+    조건에 맞는 노트북 보기
+  </button>
+</form>
+{% endblock %}

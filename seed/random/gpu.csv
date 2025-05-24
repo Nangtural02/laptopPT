@@ -1,0 +1,6 @@
+gpu_key,brand,gpu_model_name,internal_graphic,graphics_benchmark
+1,NVIDIA,RTX 3060,False,12000
+2,AMD,RX 6700M,False,11500
+3,NVIDIA,RTX 3050,False,9500
+4,Intel,UHD Graphics 620,True,500
+5,NVIDIA,RTX 3070,False,14000

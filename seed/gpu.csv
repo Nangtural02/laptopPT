@@ -1,0 +1,11 @@
+gpu_key,brand,internal_graphic,gpu_model_name,graphics_benchmark
+1,NVIDIA,False,RTX 4090,50000
+2,NVIDIA,False,RTX 4080,37000
+3,NVIDIA,False,RTX 4070 Ti,30000
+4,NVIDIA,False,RTX 3060,15000
+5,AMD,False,RX 7900 XTX,42000
+6,AMD,False,RX 7800 XT,30000
+7,Intel,True,Iris Xe,8000
+8,AMD,True,RDNA2 Integrated,9000
+9,NVIDIA,False,GTX 1650,8000
+10,NVIDIA,False,RTX 3050,10000

@@ -1,0 +1,6 @@
+convenience_key,hdmi,sd_port,lan_port,pd_charge,thunderbolt
+1,True,True,True,True,True
+2,False,True,False,False,False
+3,True,False,True,True,True
+4,False,False,True,True,False
+5,True,True,False,False,True

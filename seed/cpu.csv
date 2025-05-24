@@ -1,0 +1,11 @@
+cpu_key,brand,cpu_model_name,core_num,single_thread_benchmark,multi_thread_benchmark,internal_gpu
+1,Intel,Core i9-14900K,24,3800,44000,
+2,Intel,Core i7-13700K,16,3120,24000,
+3,Intel,Core i5-13600K,14,2890,18000,
+4,AMD,Ryzen 9 7950X,16,3600,45000,
+5,AMD,Ryzen 7 7800X3D,8,3300,30000,
+6,AMD,Ryzen 5 7600X,6,3050,15000,
+7,Intel,Core i3-13100,4,2500,7000,
+8,AMD,Ryzen 5 7540U,6,2600,12000,
+9,Intel,Core i5-1240P,12,2700,13000,
+10,AMD,Ryzen 7 7840HS,8,2900,20000,
