@@ -12,7 +12,7 @@ def create_app():
 
     # MySQL 연결 설정
     app.config[
-        'SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://laptop_project_user:qwe123@202.30.29.212:3306/laptopPT'  # WSL MySQL 연결 URI
+        'SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://laptop_project_user:qwe123@💥💥💥💥💥💥💥💥💥💥💥💥💥:3306/laptopPT'  # WSL MySQL 연결 URI   💥에 서버주소를 넣으세요
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # 불필요한 메모리 사용 방지
     # app.config['SQLALCHEMY_ECHO'] = True #SQL 날아가는거 디버깅
     db.init_app(app)
@@ -25,7 +25,7 @@ def run_web(app):
     with app.app_context():
         configure_routes(app)  # 실제 라우트 설정
         print("🚀 웹 서비스 모드로 실행 중...")
-    app.run(debug=True, port=8080, host="202.30.29.212")
+    app.run(debug=True, port=8080)
 
 
 def run_manage(app):
