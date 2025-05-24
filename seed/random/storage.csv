@@ -1,0 +1,6 @@
+storage_key,type,capacity
+1,SSD,512
+2,HDD,1000
+3,SSD,256
+4,SSD,1024
+5,HDD,2000

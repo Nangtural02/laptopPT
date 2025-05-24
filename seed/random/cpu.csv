@@ -1,0 +1,6 @@
+cpu_key,brand,cpu_model_name,core_num,single_thread_benchmark,multi_thread_benchmark,internal_gpu
+1,Intel,i5-12450H,6,2000,9000,4
+2,AMD,Ryzen 7 5800H,8,2200,10000,3
+3,Intel,i7-12700H,14,2300,13000,2
+4,AMD,Ryzen 5 5600U,6,1800,8000,1
+5,Intel,i5-1135G7,4,1600,6000,5

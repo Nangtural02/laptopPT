@@ -1,0 +1,11 @@
+notebook_key,store_key,link,soldout,price
+1,1,https://shop.example.com/notebook/1,False,650000
+2,2,https://shop.example.com/notebook/2,False,850000
+3,3,https://shop.example.com/notebook/3,True,1200000
+4,4,https://shop.example.com/notebook/4,False,1500000
+5,5,https://shop.example.com/notebook/5,False,700000
+6,6,https://shop.example.com/notebook/6,True,950000
+7,7,https://shop.example.com/notebook/7,False,1100000
+8,8,https://shop.example.com/notebook/8,False,780000
+9,9,https://shop.example.com/notebook/9,True,1050000
+10,10,https://shop.example.com/notebook/10,False,1400000

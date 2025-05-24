@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="text-xl font-bold mb-4">검색 결과</h2>
+
+<!-- 조건 수정 토글 -->
+<button onclick="document.getElementById('filterPanel').classList.toggle('hidden')"
+        class="mb-4 bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 text-sm">
+  🔍 조건 수정하기
+</button>
+
+<!-- 조건 수정 폼 -->
+<div id="filterPanel" class="hidden mb-6 border rounded p-4 bg-gray-50 text-sm">
+  <form method="post" action="/search/advanced" class="space-y-4">
+
+    <!-- 예산 슬라이더 -->
+    <div>
+      <label class="block font-medium">💰 예산 (원)</label>
+      <div id="budget_range"></div>
+      <input type="hidden" name="budget_range_min">
+      <input type="hidden" name="budget_range_max">
+    </div>
+
+    <!-- CPU 슬라이더 -->
+    <div>
+      <label class="block font-medium">🧠 CPU 점수</label>
+      <div id="cpu_range"></div>
+      <input type="hidden" name="cpu_range_min">
+      <input type="hidden" name="cpu_range_max">
+    </div>
+
+    <!-- GPU 슬라이더 -->
+    <div>
+      <label class="block font-medium">🎮 GPU 점수</label>
+      <div id="gpu_range"></div>
+      <input type="hidden" name="gpu_range_min">
+      <input type="hidden" name="gpu_range_max">
+    </div>
+
+    <!-- 디스플레이 크기 (선택지) -->
+    <div>
+      <label class="block font-medium">🖥️ 디스플레이 크기</label>
+      {% set selected_display = args.getlist("display_options") %}
+      <div class="flex gap-2 flex-wrap">
+        {% for size in ['13', '14', '15'] %}
+        <label>
+          <input type="checkbox" name="display_options" value="{{ size }}"
+                 {% if size in selected_display %}checked{% endif %}>
+          {{ size }}인치대
+        </label>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- RAM -->
+    <div>
+      <label class="block font-medium">💾 RAM</label>
+      {% set ram_selected = args.getlist("ram_options") %}
+      <div class="flex gap-2">
+        {% for ram in ['8', '16', '32'] %}
+        <label>
+          <input type="checkbox" name="ram_options" value="{{ ram }}"
+                 {% if ram in ram_selected %}checked{% endif %}> {{ ram }}GB
+        </label>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- 저장장치 -->
+    <div>
+      <label class="block font-medium">💽 저장장치</label>
+      {% set storage_selected = args.getlist("storage_options") %}
+      <div class="flex gap-2">
+        {% for sto in ['256', '512', '1024'] %}
+        <label>
+          <input type="checkbox" name="storage_options" value="{{ sto }}"
+                 {% if sto in storage_selected %}checked{% endif %}> {{ sto }}GB
+        </label>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- 해상도 필터 -->
+    <div>
+      <label class="block font-medium">📐 해상도 등급</label>
+      {% set res_selected = args.getlist("resolution_options") %}
+      <div class="flex gap-2">
+        {% for grade in ['FHD급', 'QHD급', 'UHD급'] %}
+        <label>
+          <input type="checkbox" name="resolution_options" value="{{ grade }}"
+                 {% if grade in res_selected %}checked{% endif %}> {{ grade }}
+        </label>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- 편의기능 -->
+    <div>
+      <label class="block font-medium">🔌 편의기능</label>
+      <div class="grid grid-cols-2 gap-1">
+        {% for key, label in {
+          "port_hdmi": "HDMI", "port_sd": "SD 슬롯", "port_lan": "LAN 포트",
+          "pd_charge": "PD 충전", "thunderbolt": "썬더볼트"
+        }.items() %}
+        <label>
+          <input type="checkbox" name="{{ key }}"
+                 {% if args.get(key) %}checked{% endif %}> {{ label }}
+        </label>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div>
+      <button type="submit" class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 text-sm">
+        🔄 다시 검색하기
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- 결과 리스트 -->
+<ul class="space-y-4 mt-6">
+  {% for notebook in notebooks %}
+  <li class="border rounded p-4">
+    <h3 class="text-lg font-semibold">{{ notebook.model_name }}</h3>
+    <p>CPU: {{ notebook.cpu_obj.cpu_model_name }}</p>
+    <p>GPU: {{ notebook.gpu_obj.gpu_model_name }}</p>
+    <p>RAM: {% for mem in notebook.memories %}{{ mem.capacity }}GB {% endfor %}</p>
+    <p>저장소: {% for sto in notebook.storages %}{{ sto.capacity }}GB {{ sto.type }} {% endfor %}</p>
+    <p>
+      가격:
+      {% if notebook.lowest_price %}
+        {{ "{:,}".format(notebook.lowest_price) }} 원
+      {% else %}
+        가격 정보 없음
+      {% endif %}
+    </p>
+    <a href="/notebook/{{ notebook.notebook_key }}"
+   class="text-blue-600 hover:underline text-sm inline-block mt-2">🔍 상세 보기</a>
+
+  </li>
+  {% endfor %}
+</ul>
+
+<!-- noUiSlider 라이브러리 -->
+<link href="https://cdn.jsdelivr.net/npm/nouislider@15.6.0/dist/nouislider.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/nouislider@15.6.0/dist/nouislider.min.js"></script>
+
+<script>
+function makeSlider(id, min, max, step, unit) {
+  const el = document.getElementById(id);
+  const minInput = document.querySelector(`input[name="${id}_min"]`);
+  const maxInput = document.querySelector(`input[name="${id}_max"]`);
+
+  const slider = noUiSlider.create(el, {
+    start: [min, max],
+    connect: true,
+    range: { min: min, max: max },
+    step: step,
+    tooltips: true,
+    format: {
+      to: v => Math.round(v) + unit,
+      from: v => Number(v.replace(unit, ''))
+    }
+  });
+
+  slider.on('update', (values) => {
+    minInput.value = parseInt(values[0].replace(unit, ''));
+    maxInput.value = parseInt(values[1].replace(unit, ''));
+  });
+
+  return slider;
+}
+
+// 슬라이더 생성
+const budgetSlider = makeSlider("budget_range", 300000, 2500000, 50000, "원");
+const cpuSlider = makeSlider("cpu_range", 3000, 40000, 1000, "");
+const gpuSlider = makeSlider("gpu_range", 2000, 50000, 1000, "");
+
+// 조건이 있을 때만 set() 호출
+{% if args.get("budget_min") and args.get("budget_max") %}
+  budgetSlider.set([{{ args.get("budget_min") | int }}, {{ args.get("budget_max") | int }}]);
+{% endif %}
+{% if args.get("cpu_min") and args.get("cpu_max") %}
+  cpuSlider.set([{{ args.get("cpu_min") | int }}, {{ args.get("cpu_max") | int }}]);
+{% endif %}
+{% if args.get("gpu_min") and args.get("gpu_max") %}
+  gpuSlider.set([{{ args.get("gpu_min") | int }}, {{ args.get("gpu_max") | int }}]);
+{% endif %}
+</script>
+
+
+
+
+{% endblock %}
