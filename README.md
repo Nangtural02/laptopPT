@@ -51,14 +51,28 @@
    ```bash
    pip install -r requirements.txt
    ```
+   그리고 SQL 서버 주소를 입력해줍니다. 💥💥💥💥💥💥💥💥💥💥💥💥💥대신에 서버주소를 넣어주세요.
+   ```python app.py
+   def create_app():
+    app = Flask(__name__)
 
-2. **DB 초기화 & csv 데이터 삽입** (데이터 업데이트할때말곤 건드리지마세요!! 서버는 항상켜져있습니다)
+    # MySQL 연결 설정
+    app.config[
+        'SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://laptop_project_user:qwe123@💥💥💥💥💥💥💥💥💥💥💥💥💥:3306/laptopPT'  # WSL MySQL 연결 URI   💥에 서버주소를 넣으세요
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # 불필요한 메모리 사용 방지
+    # app.config['SQLALCHEMY_ECHO'] = True #SQL 날아가는거 디버깅
+    db.init_app(app)
+
+    return app
+   ```
+
+3. **DB 초기화 & csv 데이터 삽입** (데이터 업데이트할때말곤 건드리지마세요!! 서버는 항상켜져있습니다)
 
    ```bash
    python app.py --manage
    ```
 
-3. **웹 서버 구동**
+4. **웹 서버 구동**
 
    ```bash
    python app.py (기본설정은 http::/localhost:8080 입니다)
@@ -95,7 +109,7 @@ project/
 │   ├── results.html
 │   └── notebook_detail.html
 │
-├── static/                    # 정적 자원 (선택 사항)
+├── static/                    # css파일인데, Tailwind CSS 써서 사용 안한 상태. 필요시 사용
 │   └── style.css
 │
 ├── requirements.txt
