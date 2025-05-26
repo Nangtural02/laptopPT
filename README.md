@@ -45,14 +45,19 @@
 ---
 
 ## 🚀 설치 및 실행
-
-1. **환경 준비**
+1. 소스코드 다운
+  ```bash
+  git clone https://github.com/Nangtural02/laptopPT.git
+  cd laptopPT
+  ```
+2. **환경 준비**
 
    ```bash
    pip install -r requirements.txt
    ```
-   그리고 app.py에 SQL 서버 주소를 입력해줍니다. 💥💥💥💥💥💥💥💥💥💥💥💥💥대신에 서버주소를 넣어주세요.
-   ```python app.py
+   그리고 app.py의 create_app에 SQL 서버 주소를 입력해줍니다. 💥💥💥💥💥💥💥💥💥💥💥💥💥부분만 수정하면됩니다. 💥대신에 서버주소를 넣어주세요.
+   ```python
+   # /* laptopPT/app.py */
    def create_app():
     app = Flask(__name__)
 
@@ -73,12 +78,13 @@
    python app.py --manage
    ```
 
-5. **웹 서버 구동**
+4. **웹 서버 구동**
 
    ```bash
-   python app.py (기본설정은 http::/localhost:8080 입니다)
+   python app.py (기본설정은 http::/localhost:8080입니다)
    ```
-
+5. **웹 서버 접속하여 테스트**
+   브라우저에 http::/localhost:8080 을 입력하여 접속합니다.
 ---
 
 ## 🔧 프로젝트 구조
