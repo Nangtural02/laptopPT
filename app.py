@@ -12,7 +12,6 @@ def create_app():
 
     # MySQL 연결 설정
     app.config[
-
         'SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://laptop_project_user:qwe123@💥💥💥💥💥💥💥💥💥💥💥💥💥:3306/laptopPT'  # WSL MySQL 연결 URI   💥에 서버주소를 넣으세요
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # 불필요한 메모리 사용 방지
     # app.config['SQLALCHEMY_ECHO'] = True #SQL 날아가는거 디버깅
