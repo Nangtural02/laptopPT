@@ -1,40 +1,83 @@
 {% extends "base.html" %}
 {% block content %}
-<h2 class="text-xl font-bold mb-6">간단한 질문으로 노트북 찾아보기</h2>
-<form method="post" action="/search/basic" class="space-y-10">
+<form method="post" action="/search/basic" class="space-y-10 max-w-md mx-auto">
+
+  <!-- 진행률 표시바 -->
+  <div class="relative mb-6">
+    <div class="w-full h-2 bg-gray-200 rounded-full overflow-hidden shadow-inner">
+      <div id="progress-bar" class="h-full bg-gradient-to-r from-blue-400 to-blue-600 transition-all duration-300" style="width: 33%;"></div>
+    </div>
+    <div class="absolute right-0 top-full mt-1 text-sm text-gray-600" id="step-indicator">1 / 3 (33%)</div>
+  </div>
+
   <!-- Step 1: 예산 선택 -->
-  <div class="bg-gray-100 p-6 rounded shadow">
-    <label class="block text-lg font-semibold mb-4">예산은 어느 정도인가요?</label>
-    <div class="flex flex-col gap-2">
-      <label><input type="radio" name="budget" value="700000"> 70만원 이하</label>
-      <label><input type="radio" name="budget" value="1000000"> 70만원 ~ 100만원</label>
-      <label><input type="radio" name="budget" value="1300000"> 100만원 ~ 130만원</label>
-      <label><input type="radio" name="budget" value="2000000"> 130만원 이상</label>
+  <div class="step" id="step1">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-2">💸 예산은 어느 정도인가요?</h2>
+    <p class="text-gray-500 text-sm mb-4">추천 노트북 필터링에 사용돼요</p>
+    <div class="grid grid-cols-1 gap-4">
+      {% for price, label in [(700000, '70만원 이하'), (1000000, '70만원 ~ 100만원'), (1300000, '100만원 ~ 130만원'), (2000000, '130만원 이상')] %}
+      <label class="flex items-center justify-between bg-white border border-gray-300 rounded-xl px-5 py-4 shadow-sm hover:shadow-md hover:border-blue-400 transition cursor-pointer">
+        <span class="text-sm font-medium text-gray-700">{{ label }}</span>
+        <input type="radio" name="budget" value="{{ price }}" class="w-5 h-5 text-blue-600 accent-blue-500 rounded focus:ring-2 focus:ring-blue-400">
+      </label>
+      {% endfor %}
     </div>
+    <button type="button" class="next-button mt-8 w-full bg-blue-600 text-white text-base font-semibold px-4 py-3 rounded-xl hover:bg-blue-700 shadow-md">
+      다음 →
+    </button>
   </div>
 
-  <!-- Step 2: 사용 용도 선택 -->
-  <div class="bg-gray-100 p-6 rounded shadow">
-    <label class="block text-lg font-semibold mb-4">주로 어떤 용도로 사용하실 건가요?</label>
-    <div class="flex flex-col gap-2">
-      <label><input type="radio" name="purpose" value="office"> 문서 작업 / 웹서핑 / 인강</label>
-      <label><input type="radio" name="purpose" value="study"> 코딩 / 전공 학습 / 가벼운 개발</label>
-      <label><input type="radio" name="purpose" value="design"> 디자인 / 영상 편집</label>
-      <label><input type="radio" name="purpose" value="game"> 게임용 / 고성능 작업</label>
+  <!-- Step 2: 용도 선택 -->
+  <div class="step hidden" id="step2">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-2">💼 어떤 용도로 사용할 예정인가요?</h2>
+    <p class="text-gray-500 text-sm mb-4">용도에 따라 성능 추천이 달라져요</p>
+    <div class="grid grid-cols-1 gap-4">
+      {% for val, desc in [('office', '문서 작업 / 웹서핑 / 인강'), ('study', '코딩 / 전공 학습 / 가벼운 개발'), ('design', '디자인 / 영상 편집'), ('game', '게임용 / 고성능 작업')] %}
+      <label class="flex items-center justify-between bg-white border border-gray-300 rounded-xl px-5 py-4 shadow-sm hover:shadow-md hover:border-blue-400 transition cursor-pointer">
+        <span class="text-sm font-medium text-gray-700">{{ desc }}</span>
+        <input type="radio" name="purpose" value="{{ val }}" class="w-5 h-5 text-blue-600 accent-blue-500 rounded focus:ring-2 focus:ring-blue-400">
+      </label>
+      {% endfor %}
     </div>
+    <button type="button" class="next-button mt-8 w-full bg-blue-600 text-white text-base font-semibold px-4 py-3 rounded-xl hover:bg-blue-700 shadow-md">
+      다음 →
+    </button>
   </div>
 
-  <!-- Step 3: 휴대성 여부 선택 -->
-  <div class="bg-gray-100 p-6 rounded shadow">
-    <label class="block text-lg font-semibold mb-4">휴대성이 중요한가요?</label>
-    <div class="flex gap-6">
-      <label><input type="radio" name="portability" value="yes"> 중요해요 (1.5kg 이하 / 14인치 이하)</label>
-      <label><input type="radio" name="portability" value="no"> 괜찮아요 (무게, 크기 상관없음)</label>
+  <!-- Step 3: 휴대성 여부 -->
+  <div class="step hidden" id="step3">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-2">🎒 휴대성이 중요한가요?</h2>
+    <p class="text-gray-500 text-sm mb-4">무게나 화면 크기에 영향을 줘요</p>
+    <div class="grid grid-cols-1 gap-4">
+      <label class="flex items-center justify-between bg-white border border-gray-300 rounded-xl px-5 py-4 shadow-sm hover:shadow-md hover:border-blue-400 transition cursor-pointer">
+        <span class="text-sm font-medium text-gray-700">중요해요 (1.5kg 이하 / 14인치 이하)</span>
+        <input type="radio" name="portability" value="yes" class="w-5 h-5 text-blue-600 accent-blue-500 rounded focus:ring-2 focus:ring-blue-400">
+      </label>
+      <label class="flex items-center justify-between bg-white border border-gray-300 rounded-xl px-5 py-4 shadow-sm hover:shadow-md hover:border-blue-400 transition cursor-pointer">
+        <span class="text-sm font-medium text-gray-700">괜찮아요 (무게, 크기 상관없음)</span>
+        <input type="radio" name="portability" value="no" class="w-5 h-5 text-blue-600 accent-blue-500 rounded focus:ring-2 focus:ring-blue-400">
+      </label>
     </div>
+    <button type="submit" class="mt-8 w-full bg-green-600 text-white text-base font-semibold px-4 py-3 rounded-xl hover:bg-green-700 shadow-md">
+      조건에 맞는 노트북 보기 ✅
+    </button>
   </div>
-
-  <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-    조건에 맞는 노트북 보기
-  </button>
 </form>
+
+<!-- JavaScript: 단계 이동 + 체크 박스 효과 + 진행률 바 -->
+<script>
+  const steps = document.querySelectorAll('.step');
+  const progressBar = document.getElementById('progress-bar');
+  const stepIndicator = document.getElementById('step-indicator');
+
+  document.querySelectorAll('.next-button').forEach((btn, i) => {
+    btn.addEventListener('click', () => {
+      steps[i].classList.add('hidden');
+      steps[i + 1]?.classList.remove('hidden');
+      const progress = ((i + 2) / steps.length) * 100;
+      progressBar.style.width = `${progress}%`;
+      stepIndicator.textContent = `${i + 2} / ${steps.length} (${Math.round(progress)}%)`;
+    });
+  });
+</script>
 {% endblock %}

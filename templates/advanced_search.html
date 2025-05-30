@@ -1,79 +1,91 @@
 {% extends "base.html" %}
 {% block content %}
-<h2 class="text-xl font-bold mb-6">상세 조건으로 노트북 검색하기</h2>
-<form method="post" action="/search/advanced" class="space-y-6">
-  <!-- 예산 슬라이더 -->
-  <div>
-    <label class="block font-semibold mb-2">예산 범위 (만원)</label>
-    <div id="budget_range"></div>
-    <input type="hidden" name="budget_range_min">
-    <input type="hidden" name="budget_range_max">
-    <div>선택: <span id="budget_display"></span> 원</div>
-  </div>
 
-  <!-- CPU 점수 슬라이더 -->
-  <div>
-    <label class="block font-semibold mb-2">CPU PassMark 점수</label>
-    <div id="cpu_range"></div>
-    <input type="hidden" name="cpu_range_min">
-    <input type="hidden" name="cpu_range_max">
-    <div>선택: <span id="cpu_display"></span></div>
-  </div>
+<h2 class="text-2xl font-bold mb-8 text-gray-800">🛠️ 상세 조건으로 노트북 검색하기</h2>
 
-  <!-- GPU 점수 슬라이더 -->
-  <div>
-    <label class="block font-semibold mb-2">GPU 3DMark 점수</label>
-    <div id="gpu_range"></div>
-    <input type="hidden" name="gpu_range_min">
-    <input type="hidden" name="gpu_range_max">
-    <div>선택: <span id="gpu_display"></span></div>
-  </div>
+<form method="post" action="/search/advanced"
+      class="bg-white rounded-xl shadow-md p-8 space-y-8 text-sm">
 
-  <!-- 디스플레이 크기 슬라이더 -->
-  <div>
-    <label class="block font-semibold mb-2">디스플레이 크기 (인치)</label>
-    <div id="display_range"></div>
-    <input type="hidden" name="display_range_min">
-    <input type="hidden" name="display_range_max">
-    <div>선택: <span id="display_display"></span></div>
-  </div>
+  <!-- 슬라이더 그룹 -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-  <!-- RAM 복수 선택 -->
-  <div>
-    <label class="block font-semibold mb-2">RAM 용량 (복수 선택)</label>
-    <div class="grid grid-cols-4 gap-2">
-      <label><input type="checkbox" name="ram" value="8"> 8GB</label>
-      <label><input type="checkbox" name="ram" value="16"> 16GB</label>
-      <label><input type="checkbox" name="ram" value="32"> 32GB</label>
-      <label><input type="checkbox" name="ram" value="64"> 64GB</label>
+    <!-- 예산 -->
+    <div>
+      <label class="block text-gray-700 font-semibold mb-2">💰 예산 범위 (원)</label>
+      <div id="budget_range"></div>
+      <input type="hidden" name="budget_range_min">
+      <input type="hidden" name="budget_range_max">
+      <div class="mt-1 text-gray-600">선택: <span id="budget_display" class="font-medium text-blue-700"></span></div>
+    </div>
+
+    <!-- CPU 점수 -->
+    <div>
+      <label class="block text-gray-700 font-semibold mb-2">🧠 CPU PassMark 점수</label>
+      <div id="cpu_range"></div>
+      <input type="hidden" name="cpu_range_min">
+      <input type="hidden" name="cpu_range_max">
+      <div class="mt-1 text-gray-600">선택: <span id="cpu_display" class="font-medium text-blue-700"></span></div>
+    </div>
+
+    <!-- GPU 점수 -->
+    <div>
+      <label class="block text-gray-700 font-semibold mb-2">🎮 GPU 3DMark 점수</label>
+      <div id="gpu_range"></div>
+      <input type="hidden" name="gpu_range_min">
+      <input type="hidden" name="gpu_range_max">
+      <div class="mt-1 text-gray-600">선택: <span id="gpu_display" class="font-medium text-blue-700"></span></div>
+    </div>
+
+    <!-- 디스플레이 크기 -->
+    <div>
+      <label class="block text-gray-700 font-semibold mb-2">🖥️ 디스플레이 크기 (인치)</label>
+      <div id="display_range"></div>
+      <input type="hidden" name="display_range_min">
+      <input type="hidden" name="display_range_max">
+      <div class="mt-1 text-gray-600">선택: <span id="display_display" class="font-medium text-blue-700"></span></div>
     </div>
   </div>
 
-  <!-- 저장장치 복수 선택 -->
+  <!-- RAM -->
   <div>
-    <label class="block font-semibold mb-2">저장장치 용량 (복수 선택)</label>
-    <div class="grid grid-cols-4 gap-2">
-      <label><input type="checkbox" name="storage" value="256"> 256GB</label>
-      <label><input type="checkbox" name="storage" value="512"> 512GB</label>
-      <label><input type="checkbox" name="storage" value="1024"> 1TB</label>
-      <label><input type="checkbox" name="storage" value="2048"> 2TB</label>
+    <label class="block font-semibold text-gray-700 mb-2">💾 RAM 용량</label>
+    <div class="flex flex-wrap gap-3">
+      {% for ram in [8, 16, 32, 64] %}
+        <label class="flex items-center gap-1 text-gray-700">
+          <input type="checkbox" name="ram" value="{{ ram }}"> {{ ram }}GB
+        </label>
+      {% endfor %}
     </div>
   </div>
 
-  <!-- 해상도 선택 -->
+  <!-- 저장장치 -->
   <div>
-    <label class="block font-semibold mb-2">디스플레이 해상도</label>
-    <div class="grid grid-cols-3 gap-2">
-      <label><input type="checkbox" name="resolution" value="FHD급"> FHD급</label>
-      <label><input type="checkbox" name="resolution" value="QHD급"> QHD급</label>
-      <label><input type="checkbox" name="resolution" value="UHD급"> UHD급</label>
+    <label class="block font-semibold text-gray-700 mb-2">💽 저장장치 용량</label>
+    <div class="flex flex-wrap gap-3">
+      {% for sto in [256, 512, 1024, 2048] %}
+        <label class="flex items-center gap-1 text-gray-700">
+          <input type="checkbox" name="storage" value="{{ sto }}"> {{ sto }}GB
+        </label>
+      {% endfor %}
     </div>
   </div>
 
-  <!-- 편의 기능 -->
+  <!-- 해상도 -->
   <div>
-    <label class="block font-semibold mb-2">편의 기능</label>
-    <div class="grid grid-cols-2 gap-2">
+    <label class="block font-semibold text-gray-700 mb-2">📐 해상도</label>
+    <div class="flex gap-4">
+      {% for res in ['FHD급', 'QHD급', 'UHD급'] %}
+        <label class="flex items-center gap-1 text-gray-700">
+          <input type="checkbox" name="resolution" value="{{ res }}"> {{ res }}
+        </label>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- 편의기능 -->
+  <div>
+    <label class="block font-semibold text-gray-700 mb-2">🔌 편의 기능</label>
+    <div class="grid grid-cols-2 gap-3 text-gray-700">
       <label><input type="checkbox" name="port_hdmi"> HDMI 포트</label>
       <label><input type="checkbox" name="port_sd"> SD카드 슬롯</label>
       <label><input type="checkbox" name="port_lan"> LAN 포트</label>
@@ -82,14 +94,20 @@
     </div>
   </div>
 
-  <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-    조건에 맞는 노트북 보기
-  </button>
+  <!-- 버튼 -->
+  <div class="pt-4">
+    <button type="submit"
+            class="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-lg shadow transition">
+      🔍 조건에 맞는 노트북 보기
+    </button>
+  </div>
 </form>
 
-<!-- 슬라이더 초기화 스크립트 -->
+<!-- 슬라이더 라이브러리 -->
 <link href="https://cdn.jsdelivr.net/npm/nouislider@15.6.0/dist/nouislider.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/nouislider@15.6.0/dist/nouislider.min.js"></script>
+
+<!-- 슬라이더 초기화 -->
 <script>
 function makeSlider(id, min, max, step, unit, defaultMin, defaultMax) {
   const slider = document.getElementById(id);
@@ -121,4 +139,5 @@ makeSlider('cpu_range', 2000, 50000, 1000, '', 8000, 20000);
 makeSlider('gpu_range', 1000, 40000, 1000, '', 6000, 16000);
 makeSlider('display_range', 11, 17, 0.1, '인치', 13.3, 16);
 </script>
+
 {% endblock %}
