@@ -1,20 +1,11 @@
 gpu_key,brand,internal_graphic,gpu_model_name,graphics_benchmark
-1,Intel,True,UHD Graphics 770,6000
-2,Intel,True,UHD Graphics 770,6000
-3,Intel,True,UHD Graphics 770,6000
-4,AMD,True,Radeon Graphics,6200
-5,AMD,True,Radeon Graphics,6200
-6,AMD,True,Radeon Graphics,6000
-7,Intel,True,UHD Graphics 730,4500
-8,AMD,True,Radeon 610M,4200
-9,Intel,True,Iris Xe Graphics,5200
-10,AMD,True,Radeon 780M,6500
-11,Intel,True,Iris Xe Graphics,5000
-12,Apple,True,Apple M2 GPU,6500
-13,AMD,True,Radeon 780M,6500
-14,Intel,True,UHD Graphics,4000
-15,Intel,True,Iris Xe Graphics,5000
-16,Intel,True,UHD Graphics 600,3000
-17,Intel,True,UHD Graphics,3500
-18,AMD,True,Radeon Vega 3,3000
-19,Intel,True,UHD Graphics 605,3200
+1,Intel,True,Arc Graphics,7000
+2,Intel,True,Arc Graphics,6500
+3,Apple,True,Apple M3 GPU,8000
+4,Intel,True,Intel Iris Xe Graphics,7000
+5,Intel,True,Intel Arc Graphics,8000
+6,Intel,True,Intel Arc Graphics,8000
+7,Intel,True,Intel Arc Graphics,8000
+8,Intel,True,Intel Iris Xe Graphics,8000
+9,Intel,True,Intel Arc Graphics,9500
+10,Intel,True,Intel Arc Graphics,9500

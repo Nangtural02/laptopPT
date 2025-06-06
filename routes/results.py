@@ -95,7 +95,7 @@ def render_results():
         query = query.filter(ConvenienceFeature.thunderbolt.is_(True))
 
     # 중복 Notebook 제거를 위해 distinct() 사용
-    notebooks = query.distinct(Notebook.notebook_key).limit(100).all()
+    notebooks = query.distinct(Notebook.notebook_key).limit(10).all()
 
     return render_template("results.html", notebooks=notebooks, args=args)
 
