@@ -1,21 +1,11 @@
 memory_key,brand,capacity,bandwidth
-1,Corsair,8,3200
-2,Corsair,16,3200
-3,Corsair,32,3200
-4,G.SKILL,8,3600
-5,G.SKILL,16,3600
-6,Kingston,8,2666
-7,Kingston,16,2666
-8,Samsung,16,5200
-9,Samsung,32,5200
-10,G.SKILL,32,4000
-11,Apple,16,6400
-12,Samsung,16,4266
-13,Micron,16,6400
-14,SK hynix,16,5200
-15,SK hynix,32,5200
-16,Samsung,32,6400
-17,Micron,32,6400
-18,Samsung,32,6400
-19,Kingston,16,5600
-20,Samsung,8,5200
+1,SK Hynix,32,6400
+2,Samsung,16,6400
+3,Apple,16,6400
+4,ASUS,16,3200
+5,Lenovo,32,8533
+6,ASUS,16,8533
+7,Dell,32,8533
+8,Samsung,16,3200
+9,HP,32,6400
+10,삼성전자,64,5600

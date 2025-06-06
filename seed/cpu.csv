@@ -1,20 +1,13 @@
 cpu_key,brand,cpu_model_name,core_num,single_thread_benchmark,multi_thread_benchmark,internal_gpu
-1,Intel,Core i9-14900K,24,3800,44000,1
-2,Intel,Core i7-13700K,16,3120,24000,2
-3,Intel,Core i5-13600K,14,2890,18000,3
-4,AMD,Ryzen 9 7950X,16,3600,45000,4
-5,AMD,Ryzen 7 7800X3D,8,3300,30000,5
-6,AMD,Ryzen 5 7600X,6,3050,15000,6
-7,Intel,Core i3-13100,4,2500,7000,7
-8,AMD,Ryzen 5 7540U,6,2600,12000,8
-9,Intel,Core i5-1240P,12,2700,13000,9
-10,AMD,Ryzen 7 7840HS,8,2900,20000,10
-11,Intel,Core i7-1355U,10,1900,11000,11
-12,Apple,M2 8-Core,8,2400,13000,12
-13,AMD,Ryzen 7 7735HS,8,2750,19500,13
-14,Intel,Core i5-12450H,8,2600,17000,14
-15,Intel,Core i7-1260P,12,2700,18000,15
-16,Intel,Core i5-1335U,10,2300,15000,16
-17,AMD,Ryzen 5 5625U,6,2450,12500,17
-18,Intel,Core i3-N305,8,2150,10000,18
-19,Intel,Pentium Silver N6000,4,1550,5500,19
+1,Intel,Core Ultra 7 (Series 2),14,3200,18000,1
+2,Intel,Core Ultra 7 155H,16,3100,17000,2
+3,Apple,M3,8,3200,14500,3
+4,Intel,Core i5-1335U,10,1600,8000,4
+5,Intel,Core Ultra 7 258V,8,1800,9000,5
+6,Intel,Core Ultra 7 155H,16,1800,9000,6
+7,Intel,Core Ultra 7 155H,16,1800,9000,7
+8,Intel,Core i5-1235U,10,1700,8500,8
+9,Intel,Core Ultra 7 155H,16,1900,12000,9
+10,Intel,Core Ultra 9 185H,16,3300,20000,10
+
+
