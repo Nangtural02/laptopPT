@@ -2,9 +2,10 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-COPY ../../requirements.txt .
+COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY ../../src .
+COPY . .
 
-ENTRYPOINT ["bash", "entrypoint.sh"]
+RUN chmod +x docker/laptopPT_server_docker/entrypoint.sh
+ENTRYPOINT ["docker/laptopPT_server_docker/entrypoint.sh"]

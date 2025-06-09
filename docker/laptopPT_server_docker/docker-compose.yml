@@ -1,14 +1,17 @@
-version: "3.8"
 services:
   web:
-    build: .
+    build:
+      context: ../../                      # ← 프로젝트 루트(laptopPT)
+      dockerfile: docker/laptopPT_server_docker/Dockerfile
     container_name: laptoppt_web
     ports:
       - "8080:8080"
     env_file:
-      - .env
-    environment:
+      - ./.env                             # ← 현재 폴더의 .env
+    environment:                           # (가독용·선택)
       - MYSQL_IP=${MYSQL_IP}
       - FLASK_HOST=${FLASK_HOST}
       - INTERNAL_DOCKER_MYSQL=${INTERNAL_DOCKER_MYSQL}
       - RUN_MANAGE=${RUN_MANAGE}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

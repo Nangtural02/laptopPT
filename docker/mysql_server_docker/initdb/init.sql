@@ -1,0 +1,6 @@
+CREATE DATABASE IF NOT EXISTS laptopPT;
+
+CREATE USER IF NOT EXISTS 'laptop_project_user'@'%' IDENTIFIED BY 'qwer1234';
+GRANT ALL PRIVILEGES ON laptopPT.* TO 'laptop_project_user'@'%';
+FLUSH PRIVILEGES;
+

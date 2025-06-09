@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: laptoppt_mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpw
+    volumes:
+      - ./conf.d:/etc/mysql/conf.d              # bind-address 설정
+      - ./initdb:/docker-entrypoint-initdb.d    # 초기 SQL 실행
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
+
+
