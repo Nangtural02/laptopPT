@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  web:
+    build: .
+    container_name: laptoppt_web
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    environment:
+      - MYSQL_IP=${MYSQL_IP}
+      - FLASK_HOST=${FLASK_HOST}
+      - INTERNAL_DOCKER_MYSQL=${INTERNAL_DOCKER_MYSQL}
+      - RUN_MANAGE=${RUN_MANAGE}
